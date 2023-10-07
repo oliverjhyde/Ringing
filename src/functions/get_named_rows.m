@@ -60,7 +60,7 @@ func.Jokers = @(x) [1 fliplr(2:x-1) x];
 func.SeeSaw = @(x) [fliplr(1:x/2) 1+(x/2):x];
 func.Kennet = @(x) [1 reshape(circshift(reshape(fliplr(reshape(reshape(2:x-1, 2, [])', 1 ,[])), [], 2)', -((x-2)/2)+2, 2)', 1, []) x]; % TODO Check > 8
 func.Princes = @(x) swapcol(func.Kings(x), x/2, x/2+1); % Kings but swap the middle pair
-func.Burdette = @(x) [x/2-1 1:(x/2)-2 x/2  x-1  x/2+1:x-2 x]; % TODO: Only <10
+func.Burdette = @(x) burdetteHelper(x);
 func.Hagdyke = @(x) hagdykeHelper(x);
 func.ExplodingHagdyke = @(x) hagdykeHelper(x, true);
 func.Whittingtons = @(x) whittingtonsHelper(x);
@@ -123,6 +123,20 @@ end
         end
         for i = n
             t(i:i+2) = fliplr(t(i:i+2));
+        end
+    end
+
+    function t = burdetteHelper(x)
+        t = 1:x;
+        switch mod(x,3)
+            case 0
+                for i = 1:3:x
+                    t = swapcol(t, i, i+1);
+                end
+            otherwise
+                for i = 1:x/2:x
+                    t(i:i+2) = circshift(t(i:i+2), 1, 2);
+                end
         end
     end
 
