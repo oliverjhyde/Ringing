@@ -103,7 +103,7 @@ classdef t_get_named_rows < matlab.unittest.TestCase
             end
 
             rows = get_named_rows(bell, "Mode", "Inclusive");
-            cellfun(@(x) testCase.verifyEqual(rows.(x), expected.(x)), fieldnames(expected))
+            cellfun(@(x) testCase.verifyEqual(rows.(x), expected.(x), sprintf("%s is wrong on %i.", x, bell)), fieldnames(expected))
 
         end
 
