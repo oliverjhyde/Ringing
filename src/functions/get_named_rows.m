@@ -100,13 +100,17 @@ end
         for i = size(t,2)-1:-2:2
             t = swapcol(t, i, i-1);
         end
-        t = reshape(t, 1, []);
 
         if isExploding
-            for i = 1:4:size(t,2)-2
-                t = swapcol(t, i, i+1);
+            for i = size(t,2)-1:-2:3
+                t = swapcol(t, i, i-2);
+            end
+            for i = 1:2:size(t,2)-1
+                t = flipudc(t, i);
             end
         end
+
+        t = reshape(t, 1, []);
     end
 
     function t = rollerCoasterHelper(x)
